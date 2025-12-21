@@ -1,0 +1,158 @@
+@startuml
+title Class Diagram: Платформа автоматизованого керування житловим середовищем
+
+class User {
+  +id: UUID
+  +fullName: string
+  +email: string
+  -passwordHash: string
+  +role: Role
+  +isActive: bool
+  +createdAt: datetime
+  +lastLoginAt: datetime?
+  +authenticate(email, password): bool
+  +changePassword(oldPwd, newPwd): void
+  +updateProfile(data): void
+  +hasPermission(permissionCode): bool
+}
+
+class Home {
+  +id: UUID
+  +name: string
+  +address: string?
+  +timezone: string
+  +ownerId: UUID
+  +createdAt: datetime
+  +getCurrentStatus(): HomeStatus
+  +addRoom(room): void
+  +removeRoom(roomId): void
+  +getDevices(): List<Device>
+  +getActiveScenarios(): List<Scenario>
+}
+
+class Room {
+  +id: UUID
+  +homeId: UUID
+  +name: string
+  +floor: int?
+  +orderIndex: int
+  +addDevice(device): void
+  +removeDevice(deviceId): void
+  +listDevices(): List<Device>
+}
+
+class Controller {
+  +id: UUID
+  +homeId: UUID
+  +name: string
+  +status: ControllerStatus
+  +ipAddress: string?
+  +firmwareVersion: string?
+  +lastSeenAt: datetime?
+  +sendCommand(cmd): CommandResult
+  +syncDevices(): void
+  +ping(): bool
+}
+
+class Device {
+  +id: UUID
+  +roomId: UUID
+  +controllerId: UUID
+  +name: string
+  +type: DeviceType
+  +status: DeviceStatus
+  +isEnabled: bool
+  +lastSeenAt: datetime?
+  +properties: Map
+  +turnOn(): CommandResult
+  +turnOff(): CommandResult
+  +setMode(mode): CommandResult
+  +setProperty(key, value): CommandResult
+  +getTelemetry(): DeviceTelemetry
+}
+
+class Sensor {
+  +id: UUID
+  +deviceId: UUID
+  +type: SensorType
+  +unit: string
+  +value: any
+  +updatedAt: datetime
+  +readValue(): SensorValue
+  +isThresholdExceeded(rule): bool
+}
+
+class Scenario {
+  +id: UUID
+  +homeId: UUID
+  +name: string
+  +description: string?
+  +isActive: bool
+  +createdByUserId: UUID
+  +createdAt: datetime
+  +updatedAt: datetime
+  +activate(): void
+  +deactivate(): void
+  +validate(): ValidationResult
+  +run(context): ExecutionResult
+}
+
+class Trigger {
+  +id: UUID
+  +scenarioId: UUID
+  +type: TriggerType
+  +config: Map
+  +isEnabled: bool
+  +check(context): bool
+  +getNextFireTime(): datetime?
+}
+
+class Action {
+  +id: UUID
+  +scenarioId: UUID
+  +type: ActionType
+  +targetDeviceId: UUID?
+  +parameters: Map
+  +orderIndex: int
+  +execute(context): CommandResult
+  +validate(): ValidationResult
+}
+
+class Notification {
+  +id: UUID
+  +userId: UUID
+  +type: NotificationType
+  +title: string
+  +message: string
+  +channel: ChannelType
+  +isRead: bool
+  +createdAt: datetime
+  +markAsRead(): void
+  +send(): void
+}
+
+class EventLog {
+  +id: UUID
+  +homeId: UUID
+  +eventType: string
+  +source: string
+  +description: string
+  +payload: Map
+  +createdAt: datetime
+  +write(): void
+  +query(filter): List<EventLog>
+}
+
+User "1" -- "*" Home : owns/has access
+Home "1" -- "*" Room
+Home "1" -- "*" Controller
+Room "1" -- "*" Device
+Device "1" -- "*" Sensor
+Home "1" -- "*" Scenario
+Scenario "1" -- "1" Trigger
+Scenario "1" -- "*" Action
+User "1" -- "*" Notification
+Home "1" -- "*" EventLog
+Controller "1" -- "*" Device : controls
+
+@enduml
