@@ -1,0 +1,32 @@
+@startuml
+
+interface ExecutionStrategy {
+  + execute(): void
+}
+
+class ManualExecution {
+  + execute(): void
+}
+
+class TimeBasedExecution {
+  + execute(): void
+}
+
+class SensorBasedExecution {
+  + execute(): void
+}
+
+class Scenario {
+  id: UUID
+  name: string
+  + setStrategy(strategy: ExecutionStrategy)
+  + run()
+}
+
+ExecutionStrategy <|.. ManualExecution
+ExecutionStrategy <|.. TimeBasedExecution
+ExecutionStrategy <|.. SensorBasedExecution
+
+Scenario --> ExecutionStrategy
+
+@enduml

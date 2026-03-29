@@ -1,0 +1,12 @@
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\bin\Debug\net8.0\Diagrams.deps.json
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\bin\Debug\net8.0\Diagrams.dll
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\bin\Debug\net8.0\Diagrams.pdb
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.GeneratedMSBuildEditorConfig.editorconfig
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.AssemblyInfoInputs.cache
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.AssemblyInfo.cs
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.csproj.CoreCompileInputs.cache
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.sourcelink.json
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.dll
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\refint\Diagrams.dll
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\Diagrams.pdb
+F:\4_курс\MASW\Курсова\vs_diagrams\Diagrams\obj\Debug\net8.0\ref\Diagrams.dll

@@ -1,0 +1,78 @@
+@startuml
+
+class User {
+  id: UUID
+  name: string
+  email: string
+  password: string
+  role: Role
+}
+
+class Home {
+  id: UUID
+  name: string
+  address: string
+}
+
+class Room {
+  id: UUID
+  name: string
+}
+
+class Device {
+  id: UUID
+  name: string
+  type: string
+  status: string
+}
+
+class Controller {
+  id: UUID
+  status: string
+}
+
+class Sensor {
+  id: UUID
+  type: string
+  value: float
+}
+
+class Scenario {
+  id: UUID
+  name: string
+  isActive: boolean
+}
+
+class Trigger {
+  type: string
+}
+
+class Action {
+  type: string
+}
+
+class Notification {
+  id: UUID
+  message: string
+}
+
+class EventLog {
+  id: UUID
+  eventType: string
+  timestamp: datetime
+}
+
+User "1" -- "1..*" Home
+Home "1" *-- "1..*" Room
+Room "1" -- "0..*" Device
+Home "1" -- "0..*" Controller
+Controller "1" -- "0..*" Device
+Device "1" -- "0..1" Sensor
+
+Scenario "1" *-- "1" Trigger
+Scenario "1" *-- "0..*" Action
+
+User "1" -- "0..*" Notification
+Home "1" -- "0..*" EventLog
+
+@enduml

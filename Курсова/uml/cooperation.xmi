@@ -1,0 +1,25 @@
+@startuml
+
+object Користувач
+object UI
+object Backend
+object Controller
+object Device
+
+Користувач -> UI : 1: Відкрити список пристроїв
+UI -> Backend : 2: Отримати пристрої()
+Backend -> Device : 3: Запит стану
+Device -> Backend : 4: Стан пристрою
+Backend -> UI : 5: Дані пристрою
+UI -> Користувач : 6: Відобразити
+
+Користувач -> UI : 7: Надіслати команду
+UI -> Backend : 8: Передати команду()
+Backend -> Controller : 9: Виконати команду
+Controller -> Device : 10: Керування пристроєм
+Device -> Controller : 11: Результат
+Controller -> Backend : 12: Статус
+Backend -> UI : 13: Підтвердження
+UI -> Користувач : 14: Оновлений стан
+
+@enduml

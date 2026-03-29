@@ -1,0 +1,70 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "Клієнти" {
+  [Web Browser] as WebClient
+  [Mobile App] as MobileClient
+}
+
+package "UI" {
+  [Dashboard View] as DashboardView
+  [Device Control Panel] as DeviceControlPanel
+  [Scenario Form] as ScenarioForm
+  [Room Settings] as RoomSettings
+}
+
+package "Business Logic" {
+  [Auth Manager] as AuthManager
+  [Device Manager] as DeviceManager
+  [Scenario Manager] as ScenarioManager
+  [Sensor Manager] as SensorManager
+  [Notification Manager] as NotificationManager
+  [Logging Manager] as LoggingManager
+}
+
+package "Data Access" {
+  [User Repo] as UserRepo
+  [Device Repo] as DeviceRepo
+  [Scenario Repo] as ScenarioRepo
+  [EventLog Repo] as EventRepo
+}
+
+package "External Devices" {
+  [Controller] as Controller
+  [Temperature Sensor] as TempSensor
+  [Heater] as Heater
+  [AC] as AC
+}
+
+database "DB" as DB
+
+WebClient --> DashboardView
+WebClient --> DeviceControlPanel
+WebClient --> ScenarioForm
+
+MobileClient --> DashboardView
+MobileClient --> DeviceControlPanel
+
+DashboardView --> DeviceManager
+DeviceControlPanel --> DeviceManager
+ScenarioForm --> ScenarioManager
+
+DeviceManager --> LoggingManager
+ScenarioManager --> LoggingManager
+
+DeviceManager --> DeviceRepo
+ScenarioManager --> ScenarioRepo
+LoggingManager --> EventRepo
+AuthManager --> UserRepo
+
+UserRepo --> DB
+DeviceRepo --> DB
+ScenarioRepo --> DB
+EventRepo --> DB
+
+DeviceManager --> Controller
+Controller --> TempSensor
+Controller --> Heater
+Controller --> AC
+
+@enduml

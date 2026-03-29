@@ -1,0 +1,36 @@
+@startuml
+skinparam componentStyle rectangle
+
+node "Client Device\n(Web / Mobile)" {
+  component "Browser / App" as Client
+}
+
+node "Application Server" {
+  component "Next.js App" as App
+  component "API Layer" as API
+}
+
+node "Database Server" {
+  database "PostgreSQL" as DB
+}
+
+node "IoT Gateway / Controller" {
+  component "Controller" as Controller
+}
+
+node "Devices" {
+  component "Temperature Sensor" as Sensor
+  component "Heater" as Heater
+  component "Air Conditioner" as AC
+}
+
+Client --> App : HTTP/HTTPS
+App --> API : internal calls
+API --> DB : TCP/IP (SQL)
+API --> Controller : HTTP/MQTT
+
+Controller --> Sensor
+Controller --> Heater
+Controller --> AC
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+
+interface IObserver {
+  + update(message: String)
+}
+
+interface ISubject {
+  + attach(observer: IObserver)
+  + detach(observer: IObserver)
+  + notifyObservers(message: String)
+}
+
+class User {
+  id: UUID
+  name: string
+  email: string
+  + update(message: String)
+}
+
+class Device {
+  id: UUID
+  name: string
+  status: string
+  + attach(observer: IObserver)
+  + detach(observer: IObserver)
+  + notifyObservers(message: String)
+}
+
+class Scenario {
+  id: UUID
+  name: string
+  + attach(observer: IObserver)
+  + notifyObservers(message: String)
+}
+
+class Notification {
+  message: string
+}
+
+ISubject <|.. Device
+ISubject <|.. Scenario
+IObserver <|.. User
+
+Device --> User : notify
+Scenario --> User : notify
+User --> Notification
+
+@enduml

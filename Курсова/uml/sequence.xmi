@@ -1,0 +1,32 @@
+@startuml
+
+actor Користувач
+participant "Web UI" as UI
+participant "Backend" as API
+participant "Controller" as Controller
+participant "Device" as Device
+database "DB" as DB
+
+Користувач -> UI : Відкрити список пристроїв
+UI -> API : GET /devices
+API -> DB : Отримати пристрої
+DB --> API : Список пристроїв
+API --> UI : Дані пристроїв
+UI --> Користувач : Відобразити список
+
+Користувач -> UI : Обрати пристрій
+Користувач -> UI : Надіслати команду (ON/OFF)
+
+UI -> API : POST /device/action
+API -> API : Перевірка доступу
+
+API -> Controller : Надіслати команду
+Controller -> Device : Виконати команду
+Device --> Controller : Результат
+Controller --> API : Статус виконання
+
+API -> DB : Оновити стан пристрою
+API --> UI : Підтвердження
+UI --> Користувач : Оновлений стан
+
+@enduml
